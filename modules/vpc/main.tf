@@ -30,7 +30,7 @@ resource "aws_subnet" "private_subnets" {
   vpc_id                  = aws_vpc.application_vpc.id
   cidr_block              = element(var.private_subnet_cidr_blocks, count.index)
   availability_zone       = element(var.availability_zones, count.index)
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   count                   = length(var.private_subnet_cidr_blocks)
 
   tags = {
