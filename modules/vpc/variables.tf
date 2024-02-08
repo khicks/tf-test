@@ -1,23 +1,27 @@
+variable "environment" {
+  description = "The environment type being created"
+  type        = string
+}
+
 variable "vpc_cidr_block" {
   description = "The CIDR block for the VPC"
   type        = string
 }
 
-variable "public_subnet_cidr_blocks" {
-  description = "The list of CIDR blocks to use in building the public subnets. List size needs to match availability zone count"
-  type        = list
+variable "num_azs" {
+  description = "Number of Availability Zones in which to create subnets. Max is number of AZs in the Region."
+  type        = number
+  default     = 3
 }
 
-variable "private_subnet_cidr_blocks" {
-  description = "The list of CIDR blocks to use in building the private subnets. List size needs to match availability zone count"
+variable "subnet_new_bits" {
+  description = "Number of new bits to add to the VPC CIDR mask to form the subnet masks. For example, a /16 VPC with /24 subnets would be 24 - 16 = 8."
+  type        = number
+  default     = 8
 }
 
-variable "availability_zones" {
-  description = "The list of availability zone to utilize in a given region"
-  type        = list
-}
-
-variable "environment" {
-  description = "The environment type being created"
-  type        = string
+variable "enable_nat_gw" {
+  description = "Create NAT Gateways in each private Subnet."
+  type        = bool
+  default     = true
 }
