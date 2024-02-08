@@ -1,14 +1,24 @@
-output "id" {
-  description = "The id of the provisioned VPC"
-  value = aws_vpc.application_vpc.id
+output "vpc" {
+  value = {
+    id   = aws_vpc.application_vpc.id
+    cidr = aws_vpc.application_vpc.cidr_block
+  }
 }
 
 output "public_subnets" {
-  description = "A list of the public subnets under the provisioned VPC"
-  value       = aws_subnet.public_subnets.*.id
+  value = {
+    ids   = aws_subnet.public_subnets.*.id
+    cidrs = aws_subnet.public_subnets.*.cidr_block
+  }
 }
 
 output "private_subnets" {
-  description = "A list of private subnets under the provisioned VPC"
-  value       = aws_subnet.private_subnets.*.id
+  value = {
+    ids   = aws_subnet.private_subnets.*.id
+    cidrs = aws_subnet.private_subnets.*.cidr_block
+  }
+}
+
+output "nat_ips" {
+  value = var.enable_nat_gw ? aws_eip.nat_eip.*.public_ip : null
 }
